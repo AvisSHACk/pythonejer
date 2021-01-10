@@ -54,6 +54,8 @@ guiones = ""
 def verificar_letra(palabra_user):
     global guiones
     global intento
+    
+    acerto = False
     intento += 1
     letra_user = input("Ingresa una letra: ")
     
@@ -65,7 +67,10 @@ def verificar_letra(palabra_user):
                 guiones = guiones.split(" ")
                 guiones[i] = letra_user
                 guiones = ' '.join(guiones)
-
+                acerto = True
+    
+    print(intento)
+    if acerto :
         intento-=1
 
     print("Intento: ", intento )
@@ -85,6 +90,11 @@ while intento < 6:
     palabra = "".join(palabra)
 
     if(palabra == palabra_user):
+        print(f"Felicidades, la palabra secreta es {palabra}, has adivinado")
         break
     verificar_letra(palabra_user)
     print(IMÁGENES_AHORCADO[intento])
+else:
+    print("Se te acabaron los intentos, una lastima")
+
+   
