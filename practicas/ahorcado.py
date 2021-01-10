@@ -50,14 +50,11 @@ IMÁGENES_AHORCADO = ['''
 =========''']
 
 guiones = ""
-import threading
 
-def mostrar_ahorcado():
-    for i in range(7):
-        print(IMÁGENES_AHORCADO[i])
-
-def verificar_letra(intento, palabra_user):
+def verificar_letra(palabra_user):
     global guiones
+    global intento
+    intento += 1
     letra_user = input("Ingresa una letra: ")
     
     if(letra_user in guiones):
@@ -69,7 +66,11 @@ def verificar_letra(intento, palabra_user):
                 guiones[i] = letra_user
                 guiones = ' '.join(guiones)
 
-        return guiones
+        intento-=1
+
+    print("Intento: ", intento )
+    print(guiones)
+
 
 
 palabra_user = input("Ingrese una palabra: ")
@@ -77,5 +78,13 @@ for i in range(len(palabra_user)):
     if i <= len(palabra_user):
         guiones += "_ "
 
-for i in range(len(palabra_user)):
-    print(verificar_letra(i, palabra_user))
+intento = 0
+while intento < 6:
+    palabra = guiones
+    palabra = palabra.split(" ")
+    palabra = "".join(palabra)
+
+    if(palabra == palabra_user):
+        break
+    verificar_letra(palabra_user)
+    print(IMÁGENES_AHORCADO[intento])
